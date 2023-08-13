@@ -20,7 +20,9 @@ Store the CGPA of every student so on....
 
 # How to run the application
 
-### Database Config
+**First import the project into Eclipse. Do not worry about errors right now.**
+
+## Database Config
 
 Mysql 8 database is required for the application.
 **_If you have mysql database already installed follow the below instruction:_**
@@ -43,7 +45,7 @@ If you used docker to install database then you can go to http://localhost:8181 
 
 ## Running the application
 
-Select the project and _Run as_ **Java Application**
+Select the project in eclipse and _Run as_ **Java Application**
 
 ![](screenshots/run.png)
 
