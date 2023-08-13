@@ -1,3 +1,4 @@
+package student.management.system;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -22,6 +23,7 @@ import java.awt.List;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JComboBox;
@@ -61,7 +63,7 @@ public class StudentManagement extends JFrame {
 						//data.get_un();
 					}
 					else {
-						
+						lblNewLabel.setText("Database Connection Error");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,7 +80,8 @@ public class StudentManagement extends JFrame {
 		setResizable(false);
 		setTitle("Student Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 498, 638);
+		setBounds(100, 100, 560, 638);
+		setResizable(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -184,10 +187,16 @@ public class StudentManagement extends JFrame {
 					if(choose_file==1) {
 					String id=data.insert_data(name.getText(), comboBox_1.getSelectedItem().toString()+"/"+comboBox.getSelectedItem().toString()+"/"+comboBox_2.getSelectedItem().toString(), fname.getText(), mname.getText(), sex.getSelectedItem().toString(), nationality.getSelectedItem().toString(), religion.getSelectedItem().toString(), blood.getSelectedItem().toString(), subject.getSelectedItem().toString(), comboBox_9.getSelectedItem().toString()+"/"+comboBox_8.getSelectedItem().toString()+"/"+comboBox_10.getSelectedItem().toString(), address.getText(), idgen.genarate());
 					if(id.compareTo("error")!=0) {
+						try {
+							Files.createDirectories(Paths.get("student-photos/"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						file = fc.getSelectedFile();
-			            File dest = new File("photo/"+id+".jpg");
-
+			            File dest = new File("student-photos/"+id+".jpg");
 			            try {
+			            	Files.deleteIfExists(dest.toPath());
 							Files.copy(file.toPath(), dest.toPath());
 						} catch (IOException e) {
 							// TODO Auto-generated catch block

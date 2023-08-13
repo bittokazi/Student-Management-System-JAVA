@@ -1,3 +1,4 @@
+package student.management.system;
 import java.util.*;
 
 public  class IDGENARATOR {

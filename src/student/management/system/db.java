@@ -1,7 +1,8 @@
+package student.management.system;
 import java.sql.*;
 /**
  *
- * @author Teacher
+ * @author bittokazi
  */
 public class db {
 
@@ -11,7 +12,7 @@ public class db {
 
    //  Database credentials
    static final String USER = "root";
-   static final String PASS = "";
+   static final String PASS = "password";
    
    Connection conn = null;
    Statement stmt = null;

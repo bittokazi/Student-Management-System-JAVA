@@ -1,3 +1,4 @@
+package student.management.system;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -81,7 +82,7 @@ public class StudentSearch extends JFrame {
 		});
 		JLabel lblEnterStudentId = new JLabel("Enter Student ID:");
 		
-		ImageIcon image = new ImageIcon("photo/aaa.jpg");
+		ImageIcon image = new ImageIcon("photo/default.jpg");
 		Image scaleImage = image.getImage().getScaledInstance(180, 180,Image.SCALE_DEFAULT);
 		
 		ImageIcon icon1 = new ImageIcon(scaleImage);
@@ -137,7 +138,7 @@ public class StudentSearch extends JFrame {
 				lblSid.setText(sinfo[11]);
 				lblAddress_1.setText(sinfo[10]);
 				
-				ImageIcon icon = new ImageIcon("photo/"+sinfo[11]+".jpg");
+				ImageIcon icon = new ImageIcon("student-photos/"+sinfo[11]+".jpg");
 				Image scaleImage = icon.getImage().getScaledInstance(180, 180,Image.SCALE_DEFAULT);
 				
 				ImageIcon icon1 = new ImageIcon(scaleImage);
