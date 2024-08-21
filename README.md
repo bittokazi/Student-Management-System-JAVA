@@ -53,6 +53,6 @@ Select the project in eclipse and _Run as_ **Java Application**
 
 ### If error occurred during running the application
 
-Please add this **/lib/mysql-connector-j-8.0.33.jar into** file into **Build Path** if the application is not running. Add it like below:
+Please add this file **/lib/mysql-connector-j-8.0.33.jar** into the **Build Path** if the application is not running. Add it like below:
 
 ![](screenshots/build-path.png)
