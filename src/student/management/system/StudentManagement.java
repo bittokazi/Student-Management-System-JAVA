@@ -37,10 +37,12 @@ public class StudentManagement extends JFrame {
 	public static StudentManagement frame;
 	private JPanel contentPane;
 	public static JLabel lblNewLabel;
+	public static int serial_no = 1;
+	private static int currentMonth = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH)+1;
+
 	private JTextField name;
 	private JTextField fname;
 	private JTextField mname;
-	public static IDGENARATOR idgen;
 	
 	public static File file;
 	public static int returnVal;
@@ -54,7 +56,6 @@ public class StudentManagement extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					idgen=new IDGENARATOR();
 					frame = new StudentManagement();
 					frame.setVisible(true);
 					data=new db();
@@ -181,11 +182,15 @@ public class StudentManagement extends JFrame {
 		final JButton btnSubmit = new JButton("Submit ");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DOB db =new DOB();
-				if(db.set(Integer.parseInt(comboBox_1.getSelectedItem().toString()) , Integer.parseInt(comboBox.getSelectedItem().toString()), Integer.parseInt(comboBox_2.getSelectedItem().toString()))==true) {
+				
+				if (isValidDOB(
+    				Integer.parseInt(comboBox_1.getSelectedItem().toString()),
+    				Integer.parseInt(comboBox.getSelectedItem().toString()),
+    				Integer.parseInt(comboBox_2.getSelectedItem().toString())
+				)) {
 					lblNewLabel.setText("valid DOB");
 					if(choose_file==1) {
-					String id=data.insert_data(name.getText(), comboBox_1.getSelectedItem().toString()+"/"+comboBox.getSelectedItem().toString()+"/"+comboBox_2.getSelectedItem().toString(), fname.getText(), mname.getText(), sex.getSelectedItem().toString(), nationality.getSelectedItem().toString(), religion.getSelectedItem().toString(), blood.getSelectedItem().toString(), subject.getSelectedItem().toString(), comboBox_9.getSelectedItem().toString()+"/"+comboBox_8.getSelectedItem().toString()+"/"+comboBox_10.getSelectedItem().toString(), address.getText(), idgen.genarate());
+					String id=data.insert_data(name.getText(), comboBox_1.getSelectedItem().toString()+"/"+comboBox.getSelectedItem().toString()+"/"+comboBox_2.getSelectedItem().toString(), fname.getText(), mname.getText(), sex.getSelectedItem().toString(), nationality.getSelectedItem().toString(), religion.getSelectedItem().toString(), blood.getSelectedItem().toString(), subject.getSelectedItem().toString(), comboBox_9.getSelectedItem().toString()+"/"+comboBox_8.getSelectedItem().toString()+"/"+comboBox_10.getSelectedItem().toString(), address.getText(), genarateId());
 					if(id.compareTo("error")!=0) {
 						try {
 							Files.createDirectories(Paths.get("student-photos/"));
@@ -381,4 +386,50 @@ public class StudentManagement extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	private String generateId() {
+		int year = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+		int month = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH) + 1;
+
+		if (currentMonth != month) {
+			currentMonth = month;
+			serial_no = 1;
+		}
+
+		String id = year + "-" + month + "-1";
+
+		int zero = 4;
+		int temp = serial_no;
+
+		while (temp / 10 != 0) {
+			temp = temp / 10;
+			zero--;
+		}
+
+		while (zero > 0) {
+			id += "0";
+			zero--;
+		}
+
+		id += serial_no;
+		serial_no++;
+
+		return id;
+	}
+
+	private boolean isValidDOB(int day, int month, int year) {
+		String date = day + "-" + month + "-" + year;
+
+		try {
+			java.text.DateFormat df =
+					new java.text.SimpleDateFormat("dd-MM-yyyy");
+
+			df.setLenient(false);
+			df.parse(date);
+			return true;
+
+		} catch (java.text.ParseException e) {
+			return false;
+		}
+	}
+
 }
